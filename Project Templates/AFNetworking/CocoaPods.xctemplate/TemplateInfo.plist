@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Identifier</key>
+	<string>com.afnetworking.template.project.CocoaPods</string>
+	<key>Name</key>
+	<string>CocoaPods</string>
+	<key>Ancestors</key>
+	<array>
+	</array>
+	<key>Definitions</key>
+	<dict>
+		<key>../Podfile:platform</key>
+		<string>platform :ios, &quot;5.0&quot;</string>
+	</dict>
+	<key>Description</key>
+	<string>AFNetworking project template.</string>
+	<key>Kind</key>
+	<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
+	<key>Nodes</key>
+	<array>
+		<string>../Podfile:platform</string>
+	</array>
+	<key>Options</key>
+	<array>
+	</array>
+	<key>SortOrder</key>
+	<integer>1</integer>
+</dict>
+</plist>

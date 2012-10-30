@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Identifier</key>
+	<string>com.afnetworking.template.project.AFNetworking</string>
+	<key>Name</key>
+	<string>AFNetworking Dependency</string>
+	<key>Ancestors</key>
+	<array>
+	</array>
+	<key>Definitions</key>
+	<dict>
+		<key>../Podfile:afnetworking</key>
+		<string>pod &quot;AFNetworking&quot;</string>
+
+		<key>___PACKAGENAME___-Prefix.pch:objC:importSystemConfiguration</key>
+		<string>#import &lt;SystemConfiguration/SystemConfiguration.h&gt;</string>
+		<key>___PACKAGENAME___-Prefix.pch:objC:importCoreServices</key>
+		<string>#import &lt;MobileCoreServices/MobileCoreServices.h&gt;</string>
+
+		<key>Classes/___PACKAGENAMEASIDENTIFIER___APIClient.h</key>
+		<dict>
+			<key>Beginning</key>
+			<string>#import "AFHTTPClient.h"
+
+@interface ___PACKAGENAMEASIDENTIFIER___APIClient : AFHTTPClient
+
++ (___PACKAGENAMEASIDENTIFIER___APIClient *)sharedClient;
+</string>
+			<key>End</key>
+			<string>@end</string>
+			<key>Group</key>
+			<key>Networking</key>
+		</dict>
+
+		<key>Classes/___PACKAGENAMEASIDENTIFIER___APIClient.m</key>
+		<dict>
+			<key>Beginning</key>
+			<string>#import "___PACKAGENAMEASIDENTIFIER___APIClient.h"
+#import "AFJSONRequestOperation.h"
+
+static NSString * const k___PACKAGENAMEASIDENTIFIER___APIBaseURLString = @"&lt;# API Base URL #&gt;";
+
+@implementation ___PACKAGENAMEASIDENTIFIER___APIClient
+
++ (___PACKAGENAMEASIDENTIFIER___APIClient *)sharedClient {
+    static ___PACKAGENAMEASIDENTIFIER___APIClient *_sharedClient = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&amp;onceToken, ^{
+        _sharedClient = [[self alloc] initWithBaseURL:[NSURL URLWithString:k___PACKAGENAMEASIDENTIFIER___APIBaseURLString]];
+    });
+    
+    return _sharedClient;
+}
+
+- (id)initWithBaseURL:(NSURL *)url {
+    self = [super initWithBaseURL:url];
+    if (!self) {
+        return nil;
+    }
+    
+    [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    [self setDefaultHeader:@"Accept" value:@"application/json"];
+    
+    return self;
+}
+</string>
+			<key>End</key>
+			<string>@end</string>
+			<key>Group</key>
+			<key>Networking</key>
+		</dict>
+	</dict>
+	<key>Description</key>
+	<string></string>
+	<key>Kind</key>
+	<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
+	<key>Nodes</key>
+	<array>
+		<string>../Podfile:afnetworking</string>
+		<string>___PACKAGENAME___-Prefix.pch:objC:importSystemConfiguration</string>
+		<string>___PACKAGENAME___-Prefix.pch:objC:importCoreServices</string>
+		<string>Classes/___PACKAGENAMEASIDENTIFIER___APIClient.h</string>
+		<string>Classes/___PACKAGENAMEASIDENTIFIER___APIClient.m</string>
+	</array>
+	<key>Options</key>
+	<array>
+	</array>
+	<key>SortOrder</key>
+	<integer>1</integer>
+</dict>
+</plist>

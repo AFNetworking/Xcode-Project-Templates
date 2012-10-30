@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Identifier</key>
+  <string>com.afnetworking.template.project.AFIncrementalStore</string>
+	<key>Ancestors</key>
+	<array>
+		<string>com.apple.dt.unit.cocoaTouchApplication</string>
+	</array>
+	<key>Kind</key>
+	<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
+  <key>Options</key>
+	<array>
+		<dict>
+			<key>Default</key>
+			<string>false</string>
+			<key>Description</key>
+			<string>Whether the application should use the Core Data framework for storage</string>
+			<key>Identifier</key>
+			<string>coreData</string>
+			<key>Name</key>
+			<string>Use Core Data</string>
+			<key>SortOrder</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>checkbox</string>
+			<key>Units</key>
+			<dict>
+				<key>true</key>
+				<dict>
+					<key>Definitions</key>
+					<dict>
+            <key>../Podfile:afincrementalstore</key>
+            <string>pod &quot;AFIncrementalStore&quot;</string>
+
+            <key>___PACKAGENAME___-Prefix.pch:objC:importCoreData</key>
+            <string>#import &lt;CoreData/CoreData.h&gt;</string>
+
+						<key>___PACKAGENAMEASIDENTIFIER___.xcdatamodeld</key>
+						<dict>
+							<key>Path</key>
+							<string>___PACKAGENAMEASIDENTIFIER___.xcdatamodeld</string>
+              <key>Group</key>
+              <string>Models</string>
+						</dict>
+
+						<key>___VARIABLE_classPrefix:identifier___AppDelegate.h:methods:coreData</key>
+						<string>@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
+@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+- (void)saveContext;
+</string>
+						<key>___VARIABLE_classPrefix:identifier___AppDelegate.m:applicationWillTerminate:comments</key>
+						<string>// Saves changes in the application's managed object context before the application terminates.
+</string>
+						<key>___VARIABLE_classPrefix:identifier___AppDelegate.m:applicationWillTerminate:save</key>
+						<string>[self saveContext];
+</string>
+						<key>___VARIABLE_classPrefix:identifier___AppDelegate.m:coreData</key>
+						<string>#pragma mark - Core Data
+
+- (void)saveContext {
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext) {
+        if ([managedObjectContext hasChanges] &amp;&amp; ![managedObjectContext save:&amp;error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
+- (NSManagedObjectContext *)managedObjectContext {
+    if (_managedObjectContext) {
+        return _managedObjectContext;
+    }
+    
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator) {
+        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
+    }
+    
+    return _managedObjectContext;
+}
+
+- (NSManagedObjectModel *)managedObjectModel {
+    if (_managedObjectModel) {
+        return _managedObjectModel;
+    }
+    
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"___PACKAGENAMEASIDENTIFIER___" withExtension:@"momd"];
+    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    
+    return _managedObjectModel;
+}
+
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+    if (_persistentStoreCoordinator) {
+        return _persistentStoreCoordinator;
+    }
+    
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    
+    AFIncrementalStore *incrementalStore = (AFIncrementalStore *)[_persistentStoreCoordinator addPersistentStoreWithType:[___PACKAGENAMEASIDENTIFIER___IncrementalStore type] configuration:nil URL:nil options:nil error:nil];
+    
+    NSURL *applicationDocumentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSURL *storeURL = [applicationDocumentsDirectory URLByAppendingPathComponent:@"___PACKAGENAMEASIDENTIFIER___.sqlite"];
+    
+    NSDictionary *options = @{
+        NSInferMappingModelAutomaticallyOption : @(YES),
+        NSMigratePersistentStoresAutomaticallyOption: @(YES)
+    };
+    
+    NSError *error = nil;
+    if (![incrementalStore.backingPersistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&amp;error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    return _persistentStoreCoordinator;
+}
+</string>
+          
+            <key>Classes/___PACKAGENAMEASIDENTIFIER___APIClient.h</key>
+            <dict>
+              <key>Beginning</key>
+              <string>#import "AFIncrementalStore.h"
+#import "AFRestClient.h"
+
+@interface ___PACKAGENAMEASIDENTIFIER___APIClient : AFRESTClient &lt;AFIncrementalStoreHTTPClient&gt;
+
++ (___PACKAGENAMEASIDENTIFIER___APIClient *)sharedClient;
+</string>
+              <key>End</key>
+              <string>@end</string>
+              <key>Group</key>
+              <key>Networking</key>
+            </dict>
+
+            <key>Classes/___PACKAGENAMEASIDENTIFIER___APIClient.m:AFIncrementalStore</key>
+            <string>#pragma mark - AFIncrementalStore
+
+- (id)representationOrArrayOfRepresentationsFromResponseObject:(id)responseObject {
+    return responseObject;
+}
+
+- (NSDictionary *)attributesForRepresentation:(NSDictionary *)representation 
+                                     ofEntity:(NSEntityDescription *)entity 
+                                 fromResponse:(NSHTTPURLResponse *)response 
+{
+    NSMutableDictionary *mutablePropertyValues = [[super attributesForRepresentation:representation ofEntity:entity fromResponse:response] mutableCopy];
+    
+    // Customize the response object to fit the expected attribute keys and values  
+    
+    return mutablePropertyValues;
+}
+
+- (BOOL)shouldFetchRemoteAttributeValuesForObjectWithID:(NSManagedObjectID *)objectID
+                                 inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    return NO;
+}
+
+- (BOOL)shouldFetchRemoteValuesForRelationship:(NSRelationshipDescription *)relationship
+                               forObjectWithID:(NSManagedObjectID *)objectID
+                        inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    return NO;
+}
+</string>
+
+            <key>Classes/___PACKAGENAMEASIDENTIFIER___IncrementalStore.h</key>
+            <dict>
+              <key>Path</key>
+              <string>___PACKAGENAMEASIDENTIFIER___IncrementalStore.h</string>
+              <key>Group</key>
+              <string>Networking</string>
+            </dict>
+
+            <key>Classes/___PACKAGENAMEASIDENTIFIER___IncrementalStore.m</key>
+            <dict>
+              <key>Path</key>
+              <string>___PACKAGENAMEASIDENTIFIER___IncrementalStore.m</string>
+              <key>Group</key>
+              <string>Networking</string>
+            </dict>
+					</dict>
+					<key>Nodes</key>
+					<array>
+            <string>../Podfile:afincrementalstore</string>
+						<string>___PACKAGENAMEASIDENTIFIER___.xcdatamodeld</string>
+						<string>___VARIABLE_classPrefix:identifier___AppDelegate.h:methods:coreData</string>
+            <string>___VARIABLE_classPrefix:identifier___AppDelegate.h:import:___PACKAGENAMEASIDENTIFIER___IncrementalStore.h</string>
+            <string>___VARIABLE_classPrefix:identifier___AppDelegate.m:implementation:synthesize:managedObjectContext = _managedObjectContext</string>
+            <string>___VARIABLE_classPrefix:identifier___AppDelegate.m:implementation:synthesize:managedObjectModel = _managedObjectModel</string>
+            <string>___VARIABLE_classPrefix:identifier___AppDelegate.m:implementation:synthesize:persistentStoreCoordinator = _persistentStoreCoordinator</string>
+            <string>___VARIABLE_classPrefix:identifier___AppDelegate.m:implementation:dealloc:_managedObjectContext</string>
+            <string>___VARIABLE_classPrefix:identifier___AppDelegate.m:implementation:dealloc:_managedObjectModel</string>
+            <string>___VARIABLE_classPrefix:identifier___AppDelegate.m:implementation:dealloc:_persistentStoreCoordinator</string>
+						<string>___VARIABLE_classPrefix:identifier___AppDelegate.m:applicationWillTerminate:save</string>
+						<string>___VARIABLE_classPrefix:identifier___AppDelegate.m:coreData</string>
+						<string>___PACKAGENAME___-Prefix.pch:objC:importCoreData</string>
+            <string>Classes/___PACKAGENAMEASIDENTIFIER___APIClient.m:AFIncrementalStore</string>
+            <string>Classes/___PACKAGENAMEASIDENTIFIER___IncrementalStore.h</string>
+            <string>Classes/___PACKAGENAMEASIDENTIFIER___IncrementalStore.m</string>
+					</array>
+					<key>Targets</key>
+					<array>
+						<dict>
+							<key>Frameworks</key>
+							<array>
+								<string>CoreData</string>
+							</array>
+						</dict>
+					</array>
+				</dict>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

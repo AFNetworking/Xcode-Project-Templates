@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Name</key>
+	<string>AFNetworking Application</string>
+		<key>Description</key>
+	<string>This template provides a starting point for an application using AFNetworking. It provides an AFHTTPClient subclass, as well as a Podfile and GitHub's Objective-C .gitignore file. When the Core Data option is enabled, the application is configured for AFIncrementalStore.</string>
+	<key>Identifier</key>
+	<string>com.afnetworking.template.project.ios</string>
+	<key>Kind</key>
+	<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
+	<key>Ancestors</key>
+	<array>
+		<string>com.afnetworking.template.project.CocoaPods</string>
+		<string>com.afnetworking.template.project.AFNetworking</string>
+		<string>com.afnetworking.template.project.AFIncrementalStore</string>
+		<string>com.apple.dt.unit.objectiveCApplication</string>
+		<string>com.apple.dt.unit.iPhoneBase</string>
+		<string>com.apple.dt.unit.prefixable</string>
+	</array>
+	<key>Concrete</key>
+	<true/>
+	<key>Definitions</key>
+	<dict>
+		<key>../.gitignore</key>
+		<dict>
+			<key>Path</key>
+			<string>gitignore</string>
+		</dict>
+		<key>Classes/Models/.gitkeep</key>
+		<dict>
+			<key>Path</key>
+			<string>gitkeep</string>
+			<key>Group</key>
+			<string>Models</string>
+		</dict>
+		<key>Classes/Views/.gitkeep</key>
+		<dict>
+			<key>Path</key>
+			<string>gitkeep</string>
+			<key>Group</key>
+			<string>Views</string>
+		</dict>
+		<key>Classes/Controllers/.gitkeep</key>
+		<dict>
+			<key>Path</key>
+			<string>gitkeep</string>
+			<key>Group</key>
+			<string>Controllers</string>
+		</dict>
+		<key>___VARIABLE_classPrefix:identifier___AppDelegate.m:applicationdidFinishLaunchingWithOptions</key>
+		<string>- (BOOL)application:(UIApplication *)application
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:8 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
+    [NSURLCache setSharedURLCache:URLCache];
+    
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    
+    UIViewController *viewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = self.navigationController;
+    [self.window makeKeyAndVisible];
+    
+    return YES;
+}
+</string>
+		<key>___VARIABLE_classPrefix:identifier___AppDelegate.h:methods:navigationController</key>
+  	<string>@property (strong, nonatomic) UINavigationController *navigationController;
+</string>
+	</dict>
+	<key>Nodes</key>
+	<array>
+		<string>___VARIABLE_classPrefix:identifier___AppDelegate.h:methods:navigationController</string>
+		<string>___VARIABLE_classPrefix:identifier___AppDelegate.m:import:AFNetworkActivityIndicatorManager.h</string>
+	</array>
+	<key>Options</key>
+	<array>
+	</array>
+	<key>SortOrder</key>
+	<integer>1</integer>
+</dict>
+</plist>
