@@ -8,7 +8,7 @@ This template provides a starting point for an application using [AFNetworking](
 ## Installation
 
 1. [Download](https://github.com/AFNetworking/Xcode-Project-Templates/zipball/master) or clone the repository
-2. Move the contents of `Project Templates` in the repository into the `/Library/Developer/Xcode/Templates/Application/Project Templates` directory.
+2. Move the contents of `Project Templates` in the repository into the `~/Library/Developer/Xcode/Templates/Application/Project Templates` directory. You may have to create the `Templates/Application/Project Templates` directories.
 3. In Xcode, check that installation was successful by creating a New Project (⌘⇧N), and checking for the AFNetworking section under iOS.
 
 ![Xcode Project Template Screenshot 1](https://raw.github.com/AFNetworking/Xcode-Project-Templates/screenshots/afnetworking-xcode-template-1.png)
