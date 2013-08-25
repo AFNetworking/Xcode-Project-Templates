@@ -44,7 +44,7 @@ static NSString * const k___PACKAGENAMEASIDENTIFIER___APIBaseURLString = @"&lt;#
 
 @implementation ___PACKAGENAMEASIDENTIFIER___APIClient
 
-+ (___PACKAGENAMEASIDENTIFIER___APIClient *)sharedClient {
++ (instancetype)sharedClient {
     static ___PACKAGENAMEASIDENTIFIER___APIClient *_sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&amp;onceToken, ^{
