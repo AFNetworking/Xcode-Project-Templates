@@ -7,7 +7,7 @@ This template provides a starting point for an application using [AFNetworking](
 
 ## Installation
 
-> You can skip steps 1 & 2 by installing the AFNetworking Project Template with [Alcatraz](http://mneorr.github.io/Alcatraz/), an Xcode package manager application for Mac OS X. 
+> You can skip steps 1 & 2 by installing the AFNetworking Project Template with [Alcatraz](http://alcatraz.io/), an Xcode package manager application for Mac OS X. 
 
 1. [Download](https://github.com/AFNetworking/Xcode-Project-Templates/zipball/master) or clone the repository
 2. Move the contents of `Project Templates` in the repository into the `~/Library/Developer/Xcode/Templates/Application/Project Templates` directory. You may have to create the `Templates/Application/Project Templates` directories.
